@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const dbInfo = require('./dbInfo.json')
 
-await mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds137740.mlab.com:37740/blog-dev', {
+await mongoose.connect(dbInfo.info, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
