@@ -11,18 +11,18 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
-import PostList from 'containers/PostList/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Post from 'containers/Post/Loadable'
+import Post from 'containers/Post/Loadable';
+import Register from 'containers/Register/Loadable';
 
 import GlobalStyle from '../../global-styles';
-import './style.css'
 
 export default function App() {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/register" component={Register} />
         <Route path="/post/:id" component={Post} />
         <Route component={NotFoundPage} />
       </Switch>

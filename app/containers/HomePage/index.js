@@ -6,12 +6,10 @@
  */
 
 import React from 'react';
-import PostList from '../PostList/Loadable'
-import {Helmet} from 'react-helmet'
+import { Helmet } from 'react-helmet';
 import Menu from 'components/Menu';
-import './style.css'
-
-
+import PostList from '../PostList/Loadable';
+import './style.css';
 
 export default function HomePage() {
   return (
@@ -20,7 +18,7 @@ export default function HomePage() {
         <title>HomePage</title>
         <meta name="description" content="Description of Homepage" />
       </Helmet>
-      <Menu></Menu>
+      <Menu/>
       <PostList />
     </div>
   );

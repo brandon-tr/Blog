@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
-const dbInfo = require('./dbInfo.json')
+const dbInfo = require('./dbInfo.json');
 
-await mongoose.connect(dbInfo.info, {
+console.log(dbInfo.info);
+
+mongoose.connect(dbInfo.info, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
-var fs = require("fs");
-var path = require("path");
+const fs = require('fs');
+const path = require('path');
 
-var models_path = path.join(__dirname, "./models/");
+const models_path = path.join(__dirname, './models/');
 
 fs.readdirSync(models_path).forEach(function(file) {
   if (file.indexOf("js") > 0) {
