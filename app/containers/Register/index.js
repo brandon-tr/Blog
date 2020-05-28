@@ -19,9 +19,7 @@ import {
   Grid,
   Paper,
   Button,
-  FormHelperText,
   Typography,
-  yellow,
 } from '@material-ui/core';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -60,6 +58,7 @@ const warn = (values) => {
   return warnings;
 };
 const renderField = ({
+                       // eslint-disable-next-line react/prop-types
   label,
   input,
   name,
@@ -94,15 +93,19 @@ const renderField = ({
 
 const submit = (e, reduxDev, props) => {
   props.test(e);
-}
+};
 
 export function Register(props) {
   useInjectReducer({ key: 'register', reducer });
   useInjectSaga({ key: 'register', saga });
   // eslint-disable-next-line react/prop-types
-  const {handleSubmit, pristine, reset, submitting  } = props;
+  const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <div>
+      <Helmet>
+        <title>Registration</title>
+        <meta name="description" content="Registration Page" />
+      </Helmet>
       <Menu />
       <Container maxWidth="sm">
         <Paper elevation={3}>
@@ -145,15 +148,17 @@ export function Register(props) {
                   component={renderField}
                 />
               </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                disabled={submitting}
-              >
-                Submit
-              </Button>
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  disabled={submitting}
+                >
+                  Submit
+                </Button>
+              </Grid>
             </Grid>
           </form>
         </Paper>
@@ -161,9 +166,7 @@ export function Register(props) {
     </div>
   );
 }
-Register.propTypes = {
-
-};
+Register.propTypes = {};
 
 const mapStateToProps = createStructuredSelector({
   register: makeSelectRegister(),
