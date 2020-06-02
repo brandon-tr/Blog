@@ -12,3 +12,4 @@ export function changeTitle(data) {
     type: CHANGE_TITLE,
   };
 }
+

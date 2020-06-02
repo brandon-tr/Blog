@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -32,8 +32,13 @@ import BookIcon from '@material-ui/icons/Book';
 import MessageIcon from '@material-ui/icons/Message';
 import PermMediaIcon from '@material-ui/icons/PermMedia';
 import GroupIcon from '@material-ui/icons/Group';
-import { Route } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
+import Posts from 'containers/Posts/Loadable';
+import Comments from 'containers/Comments/Loadable';
 import Dashboard from 'containers/Dashboard/Loadable';
+import AddPost from 'containers/AddPost/Loadable';
+import Users from 'containers/Users/Loadable';
+import Media from 'containers/Media/Loadable';
 import makeSelectAdmin from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -75,16 +80,44 @@ export function Admin(props) {
   const classes = useStyles();
   const { title } = props.admin;
   const { titleChange } = props;
-  console.log(props);
-  switch (props.location.pathname) {
-    case '/admin/dashboard':
-      if (props.admin.title !== 'Dashboard') {
-        titleChange({ title: 'Dashboard' });
-      }
-      break;
-    default:
-      break;
-  }
+  // eslint-disable-next-line default-case
+  useEffect(() => {
+    switch (props.location.pathname) {
+      case '/admin/dashboard':
+        if (props.admin.title !== 'Dashboard') {
+          titleChange({ title: 'Dashboard' });
+        }
+        break;
+      case '/admin/comments':
+        if (props.admin.title !== 'Comments List') {
+          titleChange({ title: 'Comments List' });
+        }
+        break;
+      case '/admin/media':
+        if (props.admin.title !== 'Media') {
+          titleChange({ title: 'Media' });
+        }
+        break;
+      case '/admin/users':
+        if (props.admin.title !== 'Users List') {
+          titleChange({ title: 'Users List' });
+        }
+        break;
+      case '/admin/posts':
+        if (props.admin.title !== 'Post List') {
+          titleChange({ title: 'Post List' });
+        }
+        break;
+      case '/admin/addPost':
+        if (props.admin.title !== 'Add Post') {
+          titleChange({ title: 'Add Post' });
+        }
+        break;
+      default:
+        break;
+    }
+  }, [props.location.pathname]);
+
   return (
     <div className={classes.root}>
       <Helmet>
@@ -111,101 +144,132 @@ export function Admin(props) {
         <Divider />
         <List component="nav">
           {props.admin.title === 'Dashboard' ? (
-            <ListItem button selected>
-              <ListItemIcon className={classes.icon}>
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-            </ListItem>
+            <Link to="/admin/dashboard">
+              <ListItem button selected>
+                <ListItemIcon className={classes.icon}>
+                  <DashboardIcon />
+                </ListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </ListItem>
+            </Link>
           ) : (
-            <ListItem button>
-              <ListItemIcon className={classes.icon}>
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-            </ListItem>
+            <Link to="/admin/dashboard">
+              <ListItem button>
+                <ListItemIcon className={classes.icon}>
+                  <DashboardIcon />
+                </ListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </ListItem>
+            </Link>
           )}
-          {props.admin.title === 'Posts' ? (
-            <ListItem button selected>
-              <ListItemIcon className={classes.icon}>
-                <BookIcon />
-              </ListItemIcon>
-              <ListItemText primary="Posts" />
-            </ListItem>
+          {props.admin.title === 'Post List' ? (
+            <Link to="/admin/posts">
+              <ListItem button selected>
+                <ListItemIcon className={classes.icon}>
+                  <BookIcon />
+                </ListItemIcon>
+                <ListItemText primary="Posts" />
+              </ListItem>
+            </Link>
           ) : (
-            <ListItem button>
-              <ListItemIcon className={classes.icon}>
-                <BookIcon />
-              </ListItemIcon>
-              <ListItemText primary="Posts" />
-            </ListItem>
+            <Link to="/admin/posts">
+              <ListItem button>
+                <ListItemIcon className={classes.icon}>
+                  <BookIcon />
+                </ListItemIcon>
+                <ListItemText primary="Posts" />
+              </ListItem>
+            </Link>
           )}
-          {props.admin.title === 'Comments' ? (
-            <ListItem button selected>
-              <ListItemIcon className={classes.icon}>
-                <MessageIcon />
-              </ListItemIcon>
-              <ListItemText primary="Comments" />
-            </ListItem>
+          {props.admin.title === 'Comments List' ? (
+            <Link to="/admin/comments">
+              <ListItem button selected>
+                <ListItemIcon className={classes.icon}>
+                  <MessageIcon />
+                </ListItemIcon>
+                <ListItemText primary="Comments" />
+              </ListItem>
+            </Link>
           ) : (
-            <ListItem button>
-              <ListItemIcon className={classes.icon}>
-                <MessageIcon />
-              </ListItemIcon>
-              <ListItemText primary="Comments" />
-            </ListItem>
+            <Link to="/admin/comments">
+              <ListItem button>
+                <ListItemIcon className={classes.icon}>
+                  <MessageIcon />
+                </ListItemIcon>
+                <ListItemText primary="Comments" />
+              </ListItem>
+            </Link>
           )}
           {props.admin.title === 'Media' ? (
-            <ListItem button selected>
-              <ListItemIcon className={classes.icon}>
-                <PermMediaIcon />
-              </ListItemIcon>
-              <ListItemText primary="Media" />
-            </ListItem>
+            <Link to="/admin/media">
+              <ListItem button selected>
+                <ListItemIcon className={classes.icon}>
+                  <PermMediaIcon />
+                </ListItemIcon>
+                <ListItemText primary="Media" />
+              </ListItem>
+            </Link>
           ) : (
-            <ListItem button>
-              <ListItemIcon className={classes.icon}>
-                <PermMediaIcon />
-              </ListItemIcon>
-              <ListItemText primary="Media" />
-            </ListItem>
+            <Link to="/admin/media">
+              <ListItem button>
+                <ListItemIcon className={classes.icon}>
+                  <PermMediaIcon />
+                </ListItemIcon>
+                <ListItemText primary="Media" />
+              </ListItem>
+            </Link>
           )}
-          {props.admin.title === 'Users' ? (
-            <ListItem button selected>
-              <ListItemIcon className={classes.icon}>
-                <GroupIcon />
-              </ListItemIcon>
-              <ListItemText primary="Users" />
-            </ListItem>
+          {props.admin.title === 'Users List' ? (
+            <Link to="/admin/users">
+              <ListItem button selected>
+                <ListItemIcon className={classes.icon}>
+                  <GroupIcon />
+                </ListItemIcon>
+                <ListItemText primary="Users" />
+              </ListItem>
+            </Link>
           ) : (
-            <ListItem button>
-              <ListItemIcon className={classes.icon}>
-                <GroupIcon />
-              </ListItemIcon>
-              <ListItemText primary="Users" />
-            </ListItem>
+            <Link to="/admin/users">
+              <ListItem button>
+                <ListItemIcon className={classes.icon}>
+                  <GroupIcon />
+                </ListItemIcon>
+                <ListItemText primary="Users" />
+              </ListItem>
+            </Link>
           )}
-          {props.admin.title === 'Add-Post' ? (
-            <ListItem button selected>
-              <ListItemIcon className={classes.icon}>
-                <PostAddIcon />
-              </ListItemIcon>
-              <ListItemText primary="Add Post" />
-            </ListItem>
+          {props.admin.title === 'Add Post' ? (
+            <Link to="/admin/addPost">
+              <ListItem button selected>
+                <ListItemIcon className={classes.icon}>
+                  <PostAddIcon />
+                </ListItemIcon>
+                <ListItemText primary="Add Post" />
+              </ListItem>
+            </Link>
           ) : (
-            <ListItem button>
-              <ListItemIcon className={classes.icon}>
-                <PostAddIcon />
-              </ListItemIcon>
-              <ListItemText primary="Add Post" />
-            </ListItem>
+            <Link to="/admin/addPost">
+              <ListItem button>
+                <ListItemIcon className={classes.icon}>
+                  <PostAddIcon />
+                </ListItemIcon>
+                <ListItemText primary="Add Post" />
+              </ListItem>
+            </Link>
           )}
         </List>
         <Divider />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Route exact path="/admin/dashboard" component={Dashboard} />
+        <Switch>
+          <Route exact path="/admin/dashboard" component={Dashboard} />
+          <Route exact path="/admin/posts" component={Posts} />
+          <Route exact path="/admin/media" component={Media} />
+          <Route exact path="/admin/comments" component={Comments} />
+          <Route exact path="/admin/users" component={Users} />
+          <Route exact path="/admin/addPost" component={AddPost} />
+        </Switch>
       </main>
     </div>
   );

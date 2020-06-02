@@ -3,6 +3,7 @@ const secret = 'SuperSecret';
 const User = mongoose.model('UserSchema');
 const jwt = require('jsonwebtoken');
 
+// eslint-disable-next-line consistent-return
 module.exports = function register(req, res) {
   if (req.body.password.length < 5) {
     return res.status(400).json({ message: 'Error password too Short' });
@@ -15,8 +16,8 @@ module.exports = function register(req, res) {
   user.password = req.body.password;
   // eslint-disable-next-line consistent-return
   user.save(function (err) {
+    // TODO Send correct errors back
     if (err) {
-      console.log(err)
       return res.status(400).json({ message: 'Error bad response' });
     }
     const saveToToken = {

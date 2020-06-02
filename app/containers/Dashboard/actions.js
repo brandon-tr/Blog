@@ -4,10 +4,17 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { GET_STATS, GET_STATS_SUCCESS } from './constants';
 
-export function defaultAction() {
+export function getStatsDashboard() {
   return {
-    type: DEFAULT_ACTION,
+    type: GET_STATS,
+  };
+}
+
+export function retrievedStatsDashboard(data) {
+  return {
+    type: GET_STATS_SUCCESS,
+    data,
   };
 }

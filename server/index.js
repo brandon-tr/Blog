@@ -15,7 +15,7 @@ const { resolve } = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 require('./database/database');
-const user = require('./routes/createUser.js');
+const user = require('./routes/routes.js');
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // app.use('/api', myApi);

@@ -25,7 +25,7 @@ export default function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/register" component={Register} />
         <Route path="/post/:id" component={Post} />
-        <Route path="/admin" component={Admin} />
+        <Route path="/admin" RedirectTo="/admin/Dashboard" component={Admin} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
