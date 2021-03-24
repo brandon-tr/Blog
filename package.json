@@ -87,7 +87,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "minimist": "^1.2.5",
-    "mongoose": "^5.9.15",
+    "mongoose": "^5.12.2",
     "nodemon": "^2.0.4",
     "passport": "^0.4.1",
     "prop-types": "15.7.2",
